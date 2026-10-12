@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teo launcht morgen</title>
+<meta name="description" content="Eine 3D-Mini-Sitcom über Vibe-Coder Teo und seine KIs – nur mit Code gebaut. Werkzeugkiste, Geheimcodes und der Launch bei 1.000 Followern.">
+<style>
+:root{--nacht:#070a22;--nacht2:#121a52;--karte:#11132a;--rand:rgba(255,255,255,.10);--ink:#f3f4fa;--ink2:#b8bdd6;--muted:#878da8;--orange:#d9774f;--orange2:#f0a27f;--lila:#9b8cff;--gruen:#5fbf7a}
+*{box-sizing:border-box}html{background:var(--nacht)}
+body{margin:0;color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Inter,sans-serif;background:radial-gradient(1200px 700px at 50% -10%,#24307a 0%,var(--nacht2) 35%,var(--nacht) 70%) fixed}
+main{max-width:640px;margin:0 auto;padding:28px 16px 48px}
+.kopf{text-align:center}.kopf img{width:180px;height:180px;border-radius:40px;box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 3px rgba(255,255,255,.08)}
+h1{font-size:36px;line-height:1.05;margin:18px 0 6px;letter-spacing:-1px}h1 span{color:var(--orange2)}
+.unter{color:var(--ink2);margin:0 0 6px}.profile{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.knopf{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:var(--karte);border:1px solid var(--rand);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.knopf.haupt{background:var(--orange);color:#1b1b22;border-color:transparent}
+section{background:rgba(17,19,42,.88);border:1px solid var(--rand);border-radius:24px;padding:20px;margin-top:18px}
+h2{font-size:21px;margin:0 0 4px;letter-spacing:-.3px}.klein{color:var(--muted);font-size:14px;margin:0 0 14px}
+.balken{height:22px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin:14px 0 8px}
+.balken i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--orange),var(--orange2));width:0;transition:width 1.2s ease}
+.zahl{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:15px}.zahl b{color:var(--ink);font-size:20px}
+.app{margin-top:14px;padding:16px;border-radius:18px;border:1px dashed rgba(255,255,255,.25);display:flex;gap:14px;align-items:center}
+.app .sym{font-size:32px}.app.frei{border:1px solid var(--gruen);background:rgba(95,191,122,.08)}
+.wk{border-top:1px solid var(--rand);padding:14px 0 4px}.wk:first-of-type{border-top:0;padding-top:4px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.5px;color:#1b1b22;background:var(--orange2);border-radius:999px;padding:2px 10px}
+.wk h3{font-size:17px;margin:8px 0 6px}.wk ul{margin:0;padding-left:20px;color:var(--ink2)}.wk li{margin:4px 0}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}.links a{font-size:14px;color:var(--ink);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--rand);background:rgba(255,255,255,.04)}
+.hinweis{color:var(--muted);font-size:13px;margin:6px 0 0}
+form{display:flex;gap:8px}input{flex:1;min-width:0;font:inherit;font-family:ui-monospace,Consolas,monospace;text-transform:uppercase;padding:12px 14px;border-radius:14px;border:1px solid var(--rand);background:rgba(0,0,0,.25);color:var(--ink)}
+button{font:inherit;font-weight:700;padding:12px 18px;border-radius:14px;border:0;background:var(--lila);color:#14102e;cursor:pointer}
+#meldung{min-height:22px;margin:10px 0 0;font-size:15px}.extra{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--rand)}
+.setup{display:grid;grid-template-columns:1fr;gap:10px}.setup a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;color:var(--ink);padding:12px 14px;border-radius:14px;border:1px solid var(--rand);background:rgba(255,255,255,.03)}
+.setup span{color:var(--muted);text-align:right}
+footer{text-align:center;color:var(--muted);font-size:13px;margin-top:26px}footer a{color:var(--ink2)}
+</style></head><body><main>
+<div class="kopf"><img src="bilder/trio.jpg" alt="Teo mit Claude und Codex" width="180" height="180">
+ <h1>Teo launcht <span>morgen</span></h1><p class="unter">Eine 3D-Mini-Sitcom über Vibe-Coder Teo und seine KIs. Nur mit Code gebaut.</p>
+ <div class="profile"><a class="knopf haupt" href="https://www.tiktok.com/@teo.launcht" rel="noopener">TikTok</a><a class="knopf" href="https://www.instagram.com/vibecoder.teo/" rel="noopener">Instagram</a></div></div>
+
+<section id="launch"><h2>🚀 Launch-Zentrale</h2><p class="klein">Bei 1.000 Followern auf TikTok launcht Teo. Wirklich. Dann wird hier Teos App freigeschaltet.</p>
+ <div class="zahl"><span><b id="n">–</b> Follower</span><span>Ziel: <b id="ziel">1.000</b></span></div>
+ <div class="balken" aria-hidden="true"><i id="fort"></i></div><p class="hinweis" id="stand"></p>
+ <div class="app" id="app"><div class="sym">🔒</div><div><b>Teos App</b><br><span class="klein" id="apptext">Noch gesperrt. Folg Teo, damit sich das ändert.</span></div></div></section>
+
+<section id="werkzeug"><h2>🧰 Werkzeugkiste</h2><p class="klein">Alles, was in den Folgen erklärt wird – mit Links. Jede Folge legt eine Karte dazu.</p><div id="karten"></div></section>
+
+<section id="codes"><h2>🔑 Geheimcodes</h2><p class="klein">In den Folgen blitzt auf Teos Bildschirm manchmal ein Code auf. Hier eingeben – und Extras freischalten.</p>
+ <form id="form"><input id="code" placeholder="TEO-0000" autocomplete="off" aria-label="Geheimcode"><button>Freischalten</button></form>
+ <p id="meldung" role="status"></p><div id="extras"></div></section>
+
+<section id="setup"><h2>⚙️ Teos Setup</h2><p class="klein">Womit diese Serie gebaut wird.</p><div class="setup" id="setupliste"></div></section>
+
+<footer><p>Fan-Content, nicht offiziell. Nicht verbunden mit Anthropic oder OpenAI.</p><!-- IMPRESSUM: sobald die Daten eingetragen sind, wieder einblenden: <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p> --></footer>
+</main>
+<script src="daten.js"></script>
+<script>
+const D = window.DATEN || {}, nf = new Intl.NumberFormat("de-DE");
+// Launch-Zentrale
+const n = D.follower || 0, ziel = D.ziel || 1000, frei = n >= ziel;
+document.getElementById("n").textContent = D.follower == null ? "–" : nf.format(n);
+document.getElementById("ziel").textContent = nf.format(ziel);
+requestAnimationFrame(() => document.getElementById("fort").style.width = Math.min(100, 100 * n / ziel) + "%");
+if (D.stand) document.getElementById("stand").textContent = (frei ? "Geschafft! " : `Noch ${nf.format(ziel - n)} Follower. `) + "Stand: " + new Date(D.stand).toLocaleString("de-DE", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}) + " Uhr";
+if (frei) { const a = document.getElementById("app"); a.classList.add("frei"); a.querySelector(".sym").textContent = "🔓";
+  document.getElementById("apptext").innerHTML = '<a class="knopf haupt" href="app.html" style="margin-top:8px">Teos App öffnen</a>'; }
+// Werkzeugkiste
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("karten").innerHTML = (D.karten || []).map(k => `<div class="wk"><span class="tag">${esc(k.folge)}</span><h3>${esc(k.titel)}</h3>
+  <ul>${k.punkte.map(p => `<li>${esc(p)}</li>`).join("")}</ul>${k.links && k.links.length ? `<div class="links">${k.links.map(([t, u]) => `<a href="${esc(u)}" rel="noopener">${esc(t)} ↗</a>`).join("")}</div>` : ""}
+  ${k.hinweis ? `<p class="hinweis">${esc(k.hinweis)}</p>` : ""}</div>`).join("");
+// Setup
+document.getElementById("setupliste").innerHTML = (D.setup || []).map(([t, b, u]) => `<a href="${esc(u)}" rel="noopener"><b>${esc(t)}</b><span>${esc(b)}</span></a>`).join("");
+// Geheimcodes (nur Hash-Vergleich; freigeschaltete Extras merkt sich der Browser)
+const SPEICHER = "teo_extras";
+const lade = () => { try { return JSON.parse(localStorage.getItem(SPEICHER) || "[]"); } catch (e) { return []; } };
+const merke = l => { try { localStorage.setItem(SPEICHER, JSON.stringify(l)); } catch (e) {} };
+function zeigeExtras() { const l = lade(); document.getElementById("extras").innerHTML = l.map(h => D.codes && D.codes[h] ?
+  `<div class="extra"><span>🎁 ${esc(D.codes[h].titel)}</span><a class="knopf" href="${esc(D.codes[h].link)}" download>Holen</a></div>` : "").join(""); }
+async function sha(t) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, "0")).join(""); }
+document.getElementById("form").addEventListener("submit", async e => { e.preventDefault();
+  const m = document.getElementById("meldung"), roh = document.getElementById("code").value.trim().toUpperCase(); if (!roh) return;
+  const h = await sha(roh);
+  if (D.codes && D.codes[h]) { const l = lade(); if (!l.includes(h)) l.push(h); merke(l); m.textContent = "✓ Freigeschaltet: " + D.codes[h].titel; zeigeExtras(); }
+  else m.textContent = "Codex sagt: „falscher code.“"; });
+zeigeExtras();
+</script></body></html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Teos App</title>
+<style>
+:root{--nacht:#070a22;--karte:#11132a;--rand:rgba(255,255,255,.12);--ink:#f3f4fa;--ink2:#b8bdd6;--orange:#d9774f;--orange2:#f0a27f;--rot:#ff6b5b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--nacht);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:40px 16px;text-align:center}h1{font-size:30px;margin:0 0 6px}p{color:var(--ink2)}
+.box{margin:26px 0;padding:28px 22px;border-radius:24px;background:var(--karte);border:1px solid var(--rand);min-height:160px;display:flex;flex-direction:column;justify-content:center}
+.wer{font-weight:700;color:var(--orange2);margin-bottom:6px}.text{font-size:24px;line-height:1.3}.mono{font-family:ui-monospace,Consolas,monospace;text-transform:lowercase}
+.fehler{color:var(--rot);font-family:ui-monospace,Consolas,monospace}button{font:inherit;font-weight:700;padding:14px 26px;border-radius:999px;border:0;background:var(--orange);color:#1b1b22;cursor:pointer}
+a{color:var(--ink2)}
+</style></head><body><main>
+<h1>Teos App 🚀</h1><p>Der offizielle Ausreden-Generator für Vibe-Coder. Endlich gelauncht.</p>
+<div class="box" id="box"><div class="text">Drück den Knopf. Was soll schon schiefgehen?</div></div>
+<button id="los">Ausrede generieren</button>
+<p style="margin-top:30px"><a href="index.html">← zurück zur Launch-Zentrale</a></p>
+</main><script>
+const A = [["Teo", "Nur noch eine kleine Änderung."], ["codex", "bug gefunden: teo."], ["Claude", "Ich habe vorher noch eine LAUNCH_CHECKLISTE_v14.md angelegt!"], ["Teo", "Der Button muss noch runder."], ["codex", "build läuft. seit 3 tagen."], ["Claude", "Du hast völlig recht! Ich habe den Launch auf morgen verschoben."], ["Teo", "Dark Mode fehlt noch."], ["codex", "tests: 0 von 0 bestanden."], ["Claude", "Bevor wir launchen: Soll ich noch 40 Unit-Tests ergänzen?"], ["Teo", "Erst noch ein Logo. Dann launch ich."], ["codex", "merge-konflikt. mit der realität."], ["Claude", "Kontext ist voll. Kurze Zusammenfassung: Launch ist morgen."], ["Teo", "Ich guck vorher noch ein Tutorial. Oder zwölf."], ["codex", "deploy fehlgeschlagen. grund: montag."], ["Claude", "Großartige Idee! Lass uns vorher alles einmal komplett neu schreiben."], ["Teo", "Das WLAN ist zu langsam zum Launchen."], ["codex", ".env fehlt. wieder."], ["Claude", "Ich habe 3 Alternativen für das Wort „Launch“ recherchiert."], ["Teo", "Claude sagt, es ist fast fertig."], ["codex", "fast fertig = 10 %."], ["Claude", "Ich schreibe nur noch schnell die Doku. Alle 400 Seiten."]];
+let mal = 0; const box = document.getElementById("box");
+document.getElementById("los").addEventListener("click", () => {
+  mal++;
+  if (mal === 1) { box.innerHTML = '<div class="fehler">Error 500: Launch fehlgeschlagen.<br>Ursache: Teo.</div><p>codex: „hab’s gefixt. nochmal.“</p>'; return; }
+  const [wer, text] = A[Math.floor(Math.random() * A.length)];
+  box.innerHTML = `<div class="wer">${wer}</div><div class="text ${wer === "codex" ? "mono" : ""}">${text}</div>`;
+});
+</script></body></html>
