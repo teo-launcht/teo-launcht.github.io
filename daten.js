@@ -1,5 +1,15 @@
 window.DATEN = {
  "follower": 967,
+ "konten": {
+  "tiktok": {
+   "n": 967,
+   "stand": "2026-10-12T23:22:08+02:00"
+  },
+  "instagram": {
+   "n": 117,
+   "stand": "2026-10-12T05:32:54.666Z"
+  }
+ },
  "stand": "2026-10-12T23:22:08+02:00",
  "ziel": 1000,
  "karten": [
@@ -117,5 +127,5 @@ window.DATEN = {
    "link": "bilder/wallpaper_trio.jpg"
   }
  },
- "gebaut": "2026-10-13T01:12"
+ "gebaut": "2026-10-13T01:22"
 };
