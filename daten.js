@@ -125,10 +125,14 @@ window.DATEN = {
   ]
  ],
  "codes": {
-  "c4593e6bd4b301c8a633941b87ec1f0e9f2fb9a6d72bf9571e1a95457f855ffb": {
-   "titel": "Handy-Hintergrund: das Trio",
-   "link": "bilder/wallpaper_trio.jpg"
-  }
+  "iter": 250000,
+  "liste": [
+   {
+    "s": "qDQLhWqZmX8Huuj6pmpEPw==",
+    "iv": "zsdovCS7FWMgQtDr",
+    "c": "AIIRH7baH+IFxg41qX8towFLYn/ynu83qi1l+kYukbd33AhGe0l7ktSO80yaL805H9G5yqpoqhli8ynkT01w8zIJuE7kxbb6xK1Z97URkkyb4DIk2iojsmCdlIUU3QOpSXQ="
+   }
+  ]
  },
- "gebaut": "2026-10-13T01:27"
+ "gebaut": "2026-10-13T01:30"
 };

@@ -29,17 +29,26 @@
   // Setup
   if ($("setup")) $("setup").innerHTML = (D.setup || []).map(([t, b, u]) => `<a class="tool" href="${esc(u)}" rel="noopener"><b>${esc(t)}</b><span>${esc(b)} ↗</span></a>`).join("");
 
-  // Geheimcodes (nur SHA-256-Vergleich, freigeschaltete Extras merkt sich der Browser)
+  // Geheimcodes: Extras liegen verschlüsselt in daten.js (AES-256-GCM, Schlüssel = PBKDF2(Code)). Richtiger Code = Entschlüsseln klappt.
   if ($("form")) {
-    const SP = "teo_extras";
+    const SP = "teo_extras_v2", C = D.codes || { liste: [] };
     const lade = () => { try { return JSON.parse(localStorage.getItem(SP) || "[]"); } catch (e) { return []; } };
     const merke = l => { try { localStorage.setItem(SP, JSON.stringify(l)); } catch (e) {} };
-    const zeige = () => { $("extras").innerHTML = lade().map(h => D.codes && D.codes[h] ?
-      `<div class="extra"><span>${esc(D.codes[h].titel)}</span><a class="knopf" href="${esc(D.codes[h].link)}" download>Holen</a></div>` : "").join(""); };
-    const sha = async t => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)))].map(x => x.toString(16).padStart(2, "0")).join("");
-    $("form").addEventListener("submit", async e => { e.preventDefault();
-      const roh = $("code").value.trim().toUpperCase(); if (!roh) return; const h = await sha(roh);
-      if (D.codes && D.codes[h]) { const l = lade(); if (!l.includes(h)) l.push(h); merke(l); $("meldung").textContent = "Freigeschaltet: " + D.codes[h].titel; zeige(); }
+    const zeige = () => { $("extras").innerHTML = lade().map(x => `<div class="extra"><span>${esc(x.titel)}</span><a class="knopf" href="${esc(x.link)}" download>Holen</a></div>`).join(""); };
+    const b = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    async function probiere(code) {
+      const roh = await crypto.subtle.importKey("raw", new TextEncoder().encode(code), "PBKDF2", false, ["deriveKey"]);
+      for (const e of C.liste) {
+        const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b(e.s), iterations: C.iter, hash: "SHA-256" }, roh, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+        try { return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b(e.iv) }, key, b(e.c)))); } catch (x) {}
+      }
+      return null;
+    }
+    $("form").addEventListener("submit", async ev => { ev.preventDefault();
+      const code = $("code").value.trim().toUpperCase(); if (!code) return;
+      $("meldung").textContent = "prüfe …";
+      const x = await probiere(code);
+      if (x) { const l = lade().filter(y => y.link !== x.link); l.push(x); merke(l); $("meldung").textContent = "Freigeschaltet: " + x.titel; zeige(); }
       else $("meldung").textContent = "codex: „falscher code.“"; });
     zeige();
   }
