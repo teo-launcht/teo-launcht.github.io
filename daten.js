@@ -11,7 +11,10 @@ window.DATEN = {
   }
  },
  "stand": "2026-10-12T23:22:08+02:00",
- "ziel": 1000,
+ "ziele": {
+  "tiktok": 1000,
+  "instagram": 500
+ },
  "karten": [
   {
    "folge": "Folge 6",
@@ -127,5 +130,5 @@ window.DATEN = {
    "link": "bilder/wallpaper_trio.jpg"
   }
  },
- "gebaut": "2026-10-13T01:24"
+ "gebaut": "2026-10-13T01:27"
 };

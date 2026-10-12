@@ -2,15 +2,20 @@
 (function () {
   const D = window.DATEN || {}, nf = new Intl.NumberFormat("de-DE"), $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const K = D.konten || {}, tt = (K.tiktok || {}).n ?? D.follower, ig = (K.instagram || {}).n, ziel = D.ziel || 1000, frei = tt != null && tt >= ziel;
+  const K = D.konten || {}, Z = D.ziele || { tiktok: 1000, instagram: 500 };
+  const n = pl => (K[pl] || {}).n, fehlt = pl => Math.max(0, Z[pl] - (n(pl) || 0)), geschafft = pl => n(pl) != null && n(pl) >= Z[pl];
+  const frei = geschafft("tiktok") && geschafft("instagram");
   const datum = iso => iso ? new Date(iso).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) + " Uhr" : "";
 
-  // Zähler (Start- und Launch-Seite)
-  if ($("tt")) $("tt").textContent = tt == null ? "–" : nf.format(tt);
-  if ($("ig")) $("ig").textContent = ig == null ? "–" : nf.format(ig);
-  if ($("tt-u")) $("tt-u").textContent = frei ? "Launch freigeschaltet" : `noch ${nf.format(ziel - tt)} bis zum Launch`;
-  if ($("leiste")) $("leiste").style.width = Math.min(100, 100 * (tt || 0) / ziel) + "%";
-  if ($("rest")) $("rest").innerHTML = frei ? "Geschafft." : `${nf.format(ziel - tt)} <small>Follower fehlen noch</small>`;
+  // Zähler + Balken je Plattform (Start- und Launch-Seite): Launch erst, wenn BEIDE Ziele erreicht sind
+  for (const pl of ["tiktok", "instagram"]) {
+    const k = pl === "tiktok" ? "tt" : "ig";
+    if ($(k)) $(k).textContent = n(pl) == null ? "–" : nf.format(n(pl));
+    if ($(k + "-z")) $(k + "-z").textContent = nf.format(Z[pl]);
+    if ($(k + "-l")) $(k + "-l").style.width = Math.min(100, 100 * (n(pl) || 0) / Z[pl]) + "%";
+    if ($(k + "-u")) $(k + "-u").textContent = geschafft(pl) ? "Ziel erreicht ✓" : `noch ${nf.format(fehlt(pl))} bis zum Launch`;
+  }
+  if ($("rest")) $("rest").innerHTML = frei ? "Geschafft." : `${nf.format(fehlt("tiktok") + fehlt("instagram"))} <small>fehlen noch</small>`;
   if ($("stand")) $("stand").textContent = "Stand TikTok: " + datum((K.tiktok || {}).stand || D.stand) + " · Instagram: " + datum((K.instagram || {}).stand);
   if ($("app") && frei) { $("app").classList.add("frei");
     $("app").innerHTML = '<h3>Teos App ist da.</h3><p class="lead">Endlich gelauncht. Was soll schon schiefgehen?</p><div class="knoepfe"><a class="knopf" href="app.html">App öffnen</a></div>'; }

@@ -92,6 +92,12 @@ input:focus { outline: 2px solid var(--akzent); outline-offset: 1px; }
 .tool { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 15px 0; border-top: 1px solid var(--linie); text-decoration: none; }
 .tool b { font-size: 17px; } .tool span { color: var(--ink2); font-size: 15px; text-align: right; }
 
+/* Launch: zwei Ziele */
+.ziel { padding: 16px 0 14px; border-top: 1px solid var(--linie); }
+.ziel .zk { display: flex; justify-content: space-between; align-items: baseline; font-variant-numeric: tabular-nums; }
+.ziel .zk a { text-decoration: none; } .ziel .zk b { font-size: 18px; } .ziel .zk span { color: var(--ink2); }
+.ziel .leiste { height: 8px; } .ziel .u, .zahl .u { font-size: 13px; color: var(--leise); margin-top: 6px; }
+
 /* Launch */
 .gross { font: 700 64px/1 "Inter Display", "Inter", sans-serif; letter-spacing: -2px; font-variant-numeric: tabular-nums; margin: 18px 0 4px; }
 .gross small { font-size: 22px; color: var(--leise); letter-spacing: 0; font-weight: 500; }
