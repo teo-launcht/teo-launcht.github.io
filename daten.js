@@ -127,5 +127,5 @@ window.DATEN = {
    "link": "bilder/wallpaper_trio.jpg"
   }
  },
- "gebaut": "2026-10-13T01:22"
+ "gebaut": "2026-10-13T01:24"
 };
