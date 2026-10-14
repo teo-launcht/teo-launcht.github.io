@@ -126,3 +126,5 @@ footer a { color: var(--ink2); }
 .pfeil { background: none; border: 1px solid var(--linie); border-radius: 8px; color: var(--leise); font-size: 13px; line-height: 1; padding: 6px 9px; cursor: pointer; }
 .pfeil.an { background: var(--akzent); border-color: var(--akzent); color: #fff; }
 .idee .itext p { margin: 0 0 4px; } .idee.gebaut .itext p { color: var(--ink2); } .idee .ok { color: var(--gut); font-weight: 700; }
+.gross-knopf { display: block; flex: none; margin-top: 18px; padding: 16px 18px; font-size: 18px; background: var(--akzent); border-color: var(--akzent); color: #fff; }
+.gross-knopf:hover { filter: brightness(1.06); }
