@@ -131,6 +131,11 @@ footer a { color: var(--ink2); }
 .stimme.hoch.an { background: var(--gut); border-color: var(--gut); color: #fff; }
 .stimme.runter.an { background: var(--schlecht); border-color: var(--schlecht); color: #fff; }
 .stimme.an b { color: #fff; }
+[hidden] { display: none !important; }
+.pool { margin-top: 26px; } .pool h2 { margin-bottom: 4px; } .pool .reiter { margin-top: 14px; }
+h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--linie); } h2.abschnitt + .zaehler { margin-top: 12px; }
+#ideeform { margin-top: 14px; }
+.startseite .bild { aspect-ratio: 16 / 8; }
 .stimm-hinweis { margin: 4px 0 2px; } .stimm-hinweis .gut { color: var(--gut); } .stimm-hinweis .schlecht { color: var(--schlecht); }
 .idee .itext p { margin: 0 0 4px; } .idee.gebaut .itext p { color: var(--ink2); } .idee .ok { color: var(--gut); font-weight: 700; }
 .gross-knopf { display: block; flex: none; margin-top: 18px; padding: 16px 18px; font-size: 18px; background: var(--akzent); border-color: var(--akzent); color: #fff; }

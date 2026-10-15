@@ -5,8 +5,17 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const lies = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
   const merke = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-  let geraet = lies("teo_geraet", null);
-  if (!geraet) { geraet = crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)); merke("teo_geraet", geraet); }
+  /* Geräte-Kennung erst bei der ersten Stimme anlegen (16.10.: Startseite zeigt den Pool, nicht jeder Besucher stimmt ab) */
+  const geraetId = () => { let g = lies("teo_geraet", null);
+    if (!g) { g = crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)); merke("teo_geraet", g); }
+    return g; };
+  /* Startseite: Formular ist eingeklappt; Knopf klappt es auf und lädt erst dann die Bot-Prüfung (Turnstile) */
+  const auf = $("ideeauf");
+  if (auf && $("ideeform")) auf.addEventListener("click", ev => {
+    ev.preventDefault(); $("ideeform").hidden = false; auf.hidden = true;
+    if (!window.turnstile && !$("ts-js")) { const s = document.createElement("script"); s.id = "ts-js"; s.async = true;
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; document.head.appendChild(s); }
+    $("ideetext").focus({ preventScroll: true }); $("ideeform").scrollIntoView({ behavior: "smooth", block: "start" }); });
   const meine = lies("teo_stimmen", {});
   let ideen = [], sortierung = "beliebt";
 
@@ -32,7 +41,7 @@
     const b = ev.target.closest(".stimme"); if (!b) return;
     const id = +b.dataset.id, w = +b.dataset.w, neu = meine[id] === w ? 0 : w;
     try {
-      const r = await (await fetch(API + "/api/stimme", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, wert: neu, geraet }) })).json();
+      const r = await (await fetch(API + "/api/stimme", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, wert: neu, geraet: geraetId() }) })).json();
       if (r.ok) { meine[id] = neu; merke("teo_stimmen", meine); const i = ideen.find(x => x.id === id); i.hoch = r.hoch; i.runter = r.runter; zeige(false); }
     } catch (e) {}
   });
