@@ -11,14 +11,16 @@
   let ideen = [], sortierung = "beliebt";
 
   const datum = iso => new Date(iso).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" });
-  function zeige() {
-    const l = [...ideen].sort((a, b) => sortierung === "neu" ? b.erstellt.localeCompare(a.erstellt) : (b.hoch - b.runter) - (a.hoch - a.runter) || b.erstellt.localeCompare(a.erstellt));
+  let reihe = [];   /* 16.10.: Reihenfolge bleibt beim Abstimmen stehen (sonst springt die Idee unter dem Finger weg) */
+  function zeige(sortieren = true) {
+    if (sortieren) reihe = [...ideen].sort((a, b) => sortierung === "neu" ? b.erstellt.localeCompare(a.erstellt) : (b.hoch - b.runter) - (a.hoch - a.runter) || b.erstellt.localeCompare(a.erstellt)).map(i => i.id);
+    const l = reihe.map(id => ideen.find(i => i.id === id)).filter(Boolean);
     $("ideen").innerHTML = l.length ? l.map(i => {
-      const m = meine[i.id] || 0, punkte = i.hoch - i.runter;
+      const m = meine[i.id] || 0;   /* 16.10.: Hoch und Runter getrennt zählen und zeigen (Nutzerwunsch) */
       return `<li class="idee${i.status === "gebaut" ? " gebaut" : ""}">
-        <div class="stimmen"><button class="pfeil${m === 1 ? " an" : ""}" data-id="${i.id}" data-w="1" aria-label="Hochstimmen">▲</button>
-          <b>${punkte}</b><button class="pfeil${m === -1 ? " an" : ""}" data-id="${i.id}" data-w="-1" aria-label="Runterstimmen">▼</button></div>
-        <div class="itext"><p>${esc(i.text)}</p><span class="klein">${i.name ? esc(i.name) + " · " : ""}${datum(i.erstellt)}${i.status === "gebaut" ? ' · <span class="ok">✓ als Video gebaut</span>' : ""}</span></div></li>`;
+        <div class="itext"><p>${esc(i.text)}</p><span class="klein">${i.name ? esc(i.name) + " · " : ""}${datum(i.erstellt)}${i.status === "gebaut" ? ' · <span class="ok">✓ als Video gebaut</span>' : ""}</span></div>
+        <div class="stimmen"><button class="stimme hoch${m === 1 ? " an" : ""}" data-id="${i.id}" data-w="1" aria-pressed="${m === 1}" aria-label="Will ich sehen: ${i.hoch} Stimmen">▲ <b>${i.hoch}</b></button>
+          <button class="stimme runter${m === -1 ? " an" : ""}" data-id="${i.id}" data-w="-1" aria-pressed="${m === -1}" aria-label="Eher nicht: ${i.runter} Stimmen">▼ <b>${i.runter}</b></button></div></li>`;
     }).join("") : '<li class="klein">Noch keine Ideen – sei die erste Person!</li>';
   }
   async function laden() {
@@ -27,11 +29,11 @@
     catch (e) { $("ideen").innerHTML = '<li class="klein">Ideen gerade nicht erreichbar.</li>'; }
   }
   $("ideen").addEventListener("click", async ev => {
-    const b = ev.target.closest(".pfeil"); if (!b) return;
+    const b = ev.target.closest(".stimme"); if (!b) return;
     const id = +b.dataset.id, w = +b.dataset.w, neu = meine[id] === w ? 0 : w;
     try {
       const r = await (await fetch(API + "/api/stimme", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, wert: neu, geraet }) })).json();
-      if (r.ok) { meine[id] = neu; merke("teo_stimmen", meine); const i = ideen.find(x => x.id === id); i.hoch = r.hoch; i.runter = r.runter; zeige(); }
+      if (r.ok) { meine[id] = neu; merke("teo_stimmen", meine); const i = ideen.find(x => x.id === id); i.hoch = r.hoch; i.runter = r.runter; zeige(false); }
     } catch (e) {}
   });
   document.querySelectorAll("[data-sort]").forEach(t => t.addEventListener("click", () => {

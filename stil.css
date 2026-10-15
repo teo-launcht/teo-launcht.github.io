@@ -5,11 +5,11 @@
 
 :root {
   --bg: #f5f3ee; --flaeche: #fbfaf7; --ink: #15151b; --ink2: #5c5b63; --leise: #8f8e95; --linie: #e3e0d8;
-  --akzent: #c95a30; --akzent-weich: #f3dccf; --gut: #2f8a55; --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --akzent: #c95a30; --akzent-weich: #f3dccf; --gut: #2f8a55; --schlecht: #c0392b; --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root { --bg: #0f1015; --flaeche: #16171e; --ink: #f1f0ec; --ink2: #a9a8b0; --leise: #74737c; --linie: #262731;
-          --akzent: #f0875a; --akzent-weich: #3a2219; --gut: #5cc486; }
+          --akzent: #f0875a; --akzent-weich: #3a2219; --gut: #5cc486; --schlecht: #ef6f62; }
 }
 * { box-sizing: border-box; }
 html { background: var(--bg); -webkit-text-size-adjust: 100%; }
@@ -120,11 +120,18 @@ footer a { color: var(--ink2); }
 .reiter button { font: 700 14px "Inter", sans-serif; padding: 7px 14px; border-radius: 99px; border: 1px solid var(--linie); background: transparent; color: var(--ink2); cursor: pointer; }
 .reiter button.an { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .ideen { list-style: none; padding: 0; margin: 8px 0 0; }
-.idee { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--linie); }
-.idee .stimmen { display: flex; flex-direction: column; align-items: center; min-width: 40px; font-variant-numeric: tabular-nums; }
-.idee .stimmen b { font-size: 17px; margin: 2px 0; }
-.pfeil { background: none; border: 1px solid var(--linie); border-radius: 8px; color: var(--leise); font-size: 13px; line-height: 1; padding: 6px 9px; cursor: pointer; }
-.pfeil.an { background: var(--akzent); border-color: var(--akzent); color: #fff; }
+.idee { padding: 16px 0; border-top: 1px solid var(--linie); }
+/* Stimmen (16.10.): zwei große Knöpfe mit eigenem Zähler – grün „will ich sehen“, rot „eher nicht“ */
+.idee .stimmen { display: flex; gap: 10px; margin-top: 12px; }
+.stimme { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; cursor: pointer;
+          border: 1.5px solid var(--linie); background: var(--flaeche); color: var(--ink2); font-family: inherit; font-weight: 600; font-size: 16px; line-height: 1; font-variant-numeric: tabular-nums; }
+.stimme b { font-size: 17px; color: var(--ink); }
+.stimme.hoch { color: var(--gut); border-color: color-mix(in srgb, var(--gut) 45%, var(--linie)); }
+.stimme.runter { color: var(--schlecht); border-color: color-mix(in srgb, var(--schlecht) 45%, var(--linie)); }
+.stimme.hoch.an { background: var(--gut); border-color: var(--gut); color: #fff; }
+.stimme.runter.an { background: var(--schlecht); border-color: var(--schlecht); color: #fff; }
+.stimme.an b { color: #fff; }
+.stimm-hinweis { margin: 4px 0 2px; } .stimm-hinweis .gut { color: var(--gut); } .stimm-hinweis .schlecht { color: var(--schlecht); }
 .idee .itext p { margin: 0 0 4px; } .idee.gebaut .itext p { color: var(--ink2); } .idee .ok { color: var(--gut); font-weight: 700; }
 .gross-knopf { display: block; flex: none; margin-top: 18px; padding: 16px 18px; font-size: 18px; background: var(--akzent); border-color: var(--akzent); color: #fff; }
 .gross-knopf:hover { filter: brightness(1.06); }
