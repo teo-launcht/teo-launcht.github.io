@@ -140,3 +140,9 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 .idee .itext p { margin: 0 0 4px; } .idee.gebaut .itext p { color: var(--ink2); } .idee .ok { color: var(--gut); font-weight: 700; }
 .gross-knopf { display: block; flex: none; margin-top: 18px; padding: 16px 18px; font-size: 18px; background: var(--akzent); border-color: var(--akzent); color: #fff; }
 .gross-knopf:hover { filter: brightness(1.06); }
+/* Launch-Woche 19.–25.10.2026 (launch.js) */
+.launchbanner { margin: 18px 0 4px; padding: 16px 18px; border-radius: 16px; background: var(--akzent-weich); border: 1px solid var(--akzent); }
+.launchbanner .lb-k { font-weight: 700; color: var(--akzent); font-size: 14px; margin: 0 0 4px; }
+.launchbanner .lb-t { font: 700 22px/1.25 "Inter Display", "Inter", sans-serif; letter-spacing: -.3px; margin: 0 0 4px; color: var(--ink); }
+.launchbanner .lb-c { font-family: var(--mono); font-size: 18px; font-variant-numeric: tabular-nums; margin: 0 0 6px; color: var(--ink); }
+.launchbanner .gross-knopf { margin: 10px 0 8px; }
