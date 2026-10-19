@@ -146,3 +146,6 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 .launchbanner .lb-t { font: 700 22px/1.25 "Inter Display", "Inter", sans-serif; letter-spacing: -.3px; margin: 0 0 4px; color: var(--ink); }
 .launchbanner .lb-c { font-family: var(--mono); font-size: 18px; font-variant-numeric: tabular-nums; margin: 0 0 6px; color: var(--ink); }
 .launchbanner .gross-knopf { margin: 10px 0 8px; }
+
+/* Ideen-Pool-Regel (19.10.2026: Top 2 je Woche werden Folgen) */
+.regel { font-size: 15px; color: var(--ink2); margin: 8px 0 2px; line-height: 1.45; } .regel b { color: var(--ink); }
