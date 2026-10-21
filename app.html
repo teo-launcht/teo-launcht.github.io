@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Teos App</title>
-<link rel="stylesheet" href="stil.css?v=202610211709"><link rel="icon" href="bilder/trio.jpg">
+<link rel="stylesheet" href="stil.css?v=202610211853"><link rel="icon" href="bilder/trio.jpg">
 <style>.box{margin:26px 0 18px;padding:26px 20px;border-radius:16px;background:var(--flaeche);border:1px solid var(--linie);min-height:150px;display:flex;flex-direction:column;justify-content:center}
 .box .wer{font-weight:700;color:var(--akzent);font-size:14px;margin-bottom:6px}.box .text{font:700 24px/1.3 "Inter Display","Inter",sans-serif;letter-spacing:-.4px}
 .box .text.mono{font-family:var(--mono);font-size:21px;text-transform:lowercase;color:var(--ink);font-weight:600}.fehler{font-family:var(--mono);color:#d4442a;font-weight:600}</style></head>
-<body><main><a class="zurueck" href="./?v=202610211709">← Übersicht</a>
+<body><main><a class="zurueck" href="./?v=202610211853">← Übersicht</a>
 <h2>Teos App</h2>
 <div class="app" id="appsperre" hidden><h3>🔒 Noch nicht.</h3><p class="lead">Launch: Freitag, 23.10., 19:00 Uhr</p><p class="mono">codex: „geduld.“</p></div>
 <div id="appinhalt"><p class="lead">Endlich gelauncht. Drück den Knopf.</p>
 <div class="box" id="box"><div class="text">Drück den Knopf. Was soll schon schiefgehen?</div></div>
 <div class="knoepfe"><button class="knopf" id="los" style="flex:1">Ausprobieren</button></div></div>
 <footer><p>Fan-Content, nicht offiziell.</p></footer>
-</main><script src="launch.js?v=202610211709"></script><script>
+</main><script src="launch.js?v=202610211853"></script><script>
 const A = [["Teo", "Nur noch eine kleine Änderung."], ["codex", "bug gefunden: teo."], ["Claude", "Ich habe vorher noch eine LAUNCH_CHECKLISTE_v14.md angelegt!"], ["Teo", "Der Button muss noch runder."], ["codex", "build läuft. seit 3 tagen."], ["Claude", "Du hast völlig recht! Ich habe den Launch auf morgen verschoben."], ["Teo", "Dark Mode fehlt noch."], ["codex", "tests: 0 von 0 bestanden."], ["Claude", "Bevor wir launchen: Soll ich noch 40 Unit-Tests ergänzen?"], ["Teo", "Erst noch ein Logo. Dann launch ich."], ["codex", "merge-konflikt. mit der realität."], ["Claude", "Kontext ist voll. Kurze Zusammenfassung: Launch ist morgen."], ["Teo", "Ich guck vorher noch ein Tutorial. Oder zwölf."], ["codex", "deploy fehlgeschlagen. grund: montag."], ["Claude", "Großartige Idee! Lass uns vorher alles einmal komplett neu schreiben."], ["Teo", "Das WLAN ist zu langsam zum Launchen."], ["codex", ".env fehlt. wieder."], ["Claude", "Ich habe 3 Alternativen für das Wort „Launch“ recherchiert."], ["Teo", "Claude sagt, es ist fast fertig."], ["codex", "fast fertig = 10 %."], ["Claude", "Ich schreibe nur noch schnell die Doku. Alle 400 Seiten."]];
 let mal = 0; const box = document.getElementById("box");
 document.getElementById("los").addEventListener("click", () => {
