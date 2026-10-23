@@ -149,3 +149,9 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 
 /* Ideen-Pool-Regel (19.10.2026: Top 2 je Woche werden Folgen) */
 .regel { font-size: 15px; color: var(--ink2); margin: 8px 0 2px; line-height: 1.45; } .regel b { color: var(--ink); }
+/* Umgesetzte Ideen (23.10.2026): Hinweis im Pool + eigene Seite mit Endstand (keine Knöpfe) und Links zum Video */
+.gebaut-link { display: block; margin: 14px 0 6px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--linie); background: var(--flaeche);
+  color: var(--ink); text-decoration: none; font-size: 15px; } .gebaut-link:hover { border-color: var(--gut); } .gebaut-link .ok { color: var(--gut); font-weight: 700; }
+.umgesetzt .idee.gebaut .itext p { color: var(--ink); }
+.stimmen.endstand .stimme { cursor: default; min-height: 36px; padding: 0 14px; font-size: 15px; }
+.idee .videos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; } .idee .videos .knopf { flex: 0 0 auto; padding: 10px 16px; font-size: 15px; }
