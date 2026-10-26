@@ -155,3 +155,11 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 .umgesetzt .idee.gebaut .itext p { color: var(--ink); }
 .stimmen.endstand .stimme { cursor: default; min-height: 36px; padding: 0 14px; font-size: 15px; }
 .idee .videos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; } .idee .videos .knopf { flex: 0 0 auto; padding: 10px 16px; font-size: 15px; }
+
+/* Telegram-Community (26.10.2026) */
+.tg-karte { display: block; margin: 14px 0 0; padding: 16px 18px; border-radius: 14px; text-decoration: none; color: var(--ink);
+  background: var(--flaeche); border: 1.5px solid #2aabee; }
+.tg-karte .tg-titel { display: block; font-weight: 700; font-size: 18px; }
+.tg-karte .tg-text { display: block; color: var(--ink2); font-size: 15px; margin-top: 4px; line-height: 1.45; }
+.tg-karte .tg-los { display: inline-block; margin-top: 10px; font-weight: 700; color: #229ed9; }
+.tg-karte:hover .tg-titel { color: #229ed9; }
