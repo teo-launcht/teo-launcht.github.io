@@ -1,6 +1,7 @@
 // Ideen-Pool (14.10.2026): Ideen einreichen (erst nach Prüfung sichtbar) + hoch/runter stimmen (eine Stimme pro Idee und Gerät).
 // Backend: Cloudflare Worker (01_Kanal/Webseite/ideen_backend). Adresse + Turnstile-Schlüssel stehen im <div id="ideen-cfg">.
 // 23.10.: Gebaute Ideen raus aus der Abstimmung → eigene Seite umgesetzt.html (Endstand der Stimmen + Links zum Video).
+// 28.10.: Startseite zeigt nur die Top 3 (data-max), kompakte Zeilen (Text max. 2 Zeilen, Antippen zeigt alles), Platz-Etikett für die Top 2.
 (function () {
   const $ = id => document.getElementById(id), cfg = ($("ideen-cfg") || {}).dataset || {}, API = (cfg.api || "").replace(/\/$/, "");
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -17,6 +18,8 @@
     if (!window.turnstile && !$("ts-js")) { const s = document.createElement("script"); s.id = "ts-js"; s.async = true;
       s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; document.head.appendChild(s); }
     $("ideetext").focus({ preventScroll: true }); $("ideeform").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  if (auf && location.hash === "#neu") auf.click();   /* 28.10.: Startseite „direkt eine eigene Idee einreichen“ öffnet das Formular */
+  if ($("alle-zeigen")) $("alle-zeigen").addEventListener("click", () => { $("ideen").dataset.alle = "1"; zeige(false); });
   const meine = lies("teo_stimmen", {});
   const liste = $("ideen"), fertig = $("umgesetzt");
   let ideen = [], sortierung = "beliebt";
@@ -32,25 +35,30 @@
   let reihe = [];   /* 16.10.: Reihenfolge bleibt beim Abstimmen stehen (sonst springt die Idee unter dem Finger weg) */
   function zeige(sortieren = true) {
     if (sortieren) reihe = offen().sort((a, b) => sortierung === "neu" ? b.erstellt.localeCompare(a.erstellt) : (b.hoch - b.runter) - (a.hoch - a.runter) || b.erstellt.localeCompare(a.erstellt)).map(i => i.id);
-    const l = reihe.map(id => ideen.find(i => i.id === id)).filter(Boolean);
-    liste.innerHTML = l.length ? l.map(i => {
+    const max = +(liste.dataset.max || 0), erst = +(liste.dataset.erst || 0), offenAlle = liste.dataset.alle === "1";
+    const alle = reihe.map(id => ideen.find(i => i.id === id)).filter(Boolean), l = max ? alle.slice(0, max) : erst && !offenAlle ? alle.slice(0, erst) : alle;
+    liste.innerHTML = l.length ? l.map((i, k) => {
       const m = meine[i.id] || 0;   /* 16.10.: Hoch und Runter getrennt zählen und zeigen (Nutzerwunsch) */
+      const platz = sortierung === "beliebt" && k < 2 ? `<span class="platz">Platz ${k + 1}</span>` : "";
       return `<li class="idee">
-        <div class="itext"><p>${esc(i.text)}</p><span class="klein">${i.name ? esc(i.name) + " · " : ""}${datum(i.erstellt)}</span></div>
+        <div class="itext"><p>${esc(i.text)}</p></div>
+        <div class="ifuss"><span class="klein meta">${platz}${i.name ? `<span class="wer">${esc(i.name)}</span>&nbsp;·&nbsp;` : ""}<span class="dat">${datum(i.erstellt)}</span></span>
         <div class="stimmen"><button class="stimme hoch${m === 1 ? " an" : ""}" data-id="${i.id}" data-w="1" aria-pressed="${m === 1}" aria-label="Will ich sehen: ${i.hoch} Stimmen">▲ <b>${i.hoch}</b></button>
-          <button class="stimme runter${m === -1 ? " an" : ""}" data-id="${i.id}" data-w="-1" aria-pressed="${m === -1}" aria-label="Eher nicht: ${i.runter} Stimmen">▼ <b>${i.runter}</b></button></div></li>`;
+          <button class="stimme runter${m === -1 ? " an" : ""}" data-id="${i.id}" data-w="-1" aria-pressed="${m === -1}" aria-label="Eher nicht: ${i.runter} Stimmen">▼ <b>${i.runter}</b></button></div></div></li>`;
     }).join("") : '<li class="klein">Noch keine Ideen – sei die erste Person!</li>';
-    const g = $("gebaut-link"), n = gebaut().length;
-    if (g) { g.hidden = !n; g.querySelector("b").textContent = n === 1 ? "1 Idee" : n + " Ideen"; }
+    const a = $("alle-link"); if (a && alle.length) a.firstChild.textContent = `Alle ${alle.length} Ideen ansehen & abstimmen `;
+    const z = $("alle-zeigen"); if (z) { z.hidden = !erst || offenAlle || alle.length <= erst; z.textContent = `Alle ${alle.length} Ideen anzeigen`; }
+    const n = gebaut().length, gz = $("gebaut-zahl"); if (gz) gz.textContent = n === 1 ? "1 Idee" : n + " Ideen";
   }
   function zeigeFertig() {   /* umgesetzt.html: neueste zuerst, Stimmen als Endstand (keine Knöpfe) */
     const l = gebaut().sort((a, b) => (b.gebaut_am || "").localeCompare(a.gebaut_am || "") || (b.hoch - b.runter) - (a.hoch - a.runter));
     fertig.innerHTML = l.length ? l.map(i => {
       const v = videos(i);
       return `<li class="idee gebaut">
-        <div class="itext"><p>${esc(i.text)}</p><span class="klein">${i.name ? esc(i.name) + " · " : ""}eingereicht ${datum(i.erstellt)}${i.gebaut_am ? ` · <span class="ok">✓ gebaut ${datum(i.gebaut_am)}</span>` : ""}</span></div>
+        <div class="itext"><p>${esc(i.text)}</p></div>
+        <div class="ifuss"><span class="klein">${i.name ? esc(i.name) + " · " : ""}eingereicht ${datum(i.erstellt)}${i.gebaut_am ? ` · <span class="ok">✓ Folge seit ${datum(i.gebaut_am)}</span>` : ""}</span></div>
         <div class="stimmen endstand" aria-label="Endstand: ${i.hoch} dafür, ${i.runter} dagegen"><span class="stimme hoch">▲ <b>${i.hoch}</b></span><span class="stimme runter">▼ <b>${i.runter}</b></span></div>
-        ${v.length ? `<div class="videos">${v.map(([n, u]) => `<a class="knopf" href="${esc(u)}" rel="noopener" target="_blank">▶ Auf ${n} ansehen</a>`).join("")}</div>` : ""}</li>`;
+        ${v.length ? `<div class="videos">${v.map(([n, u]) => `<a class="chip" href="${esc(u)}" rel="noopener" target="_blank">▶ ${n}</a>`).join("")}</div>` : ""}</li>`;
     }).join("") : '<li class="klein">Noch nichts umgesetzt – die erste Folge aus dem Pool kommt bald.</li>';
   }
   async function laden() {
@@ -60,6 +68,7 @@
     catch (e) { ziel.innerHTML = '<li class="klein">Ideen gerade nicht erreichbar.</li>'; }
   }
   if (liste) liste.addEventListener("click", async ev => {
+    const t = ev.target.closest(".itext p"); if (t) { t.classList.toggle("ganz"); return; }
     const b = ev.target.closest(".stimme"); if (!b) return;
     const id = +b.dataset.id, w = +b.dataset.w, neu = meine[id] === w ? 0 : w;
     try {

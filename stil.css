@@ -163,3 +163,91 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 .tg-karte .tg-text { display: block; color: var(--ink2); font-size: 15px; margin-top: 4px; line-height: 1.45; }
 .tg-karte .tg-los { display: inline-block; margin-top: 10px; font-weight: 700; color: #229ed9; }
 .tg-karte:hover .tg-titel { color: #229ed9; }
+
+/* Umbau 28.10.2026 (Website-Prüfrunde, Aufbau „ein Hauptknopf“): eine volle Orange-Fläche, Telegram als ruhiger zweiter Knopf,
+   Top 3 statt kompletter Liste, kompakte Ideen-Zeilen, Ablauf-Seite */
+.haupt-knopf { display: block; flex: none; margin-top: 22px; padding: 15px 18px 14px; border-radius: 14px; text-align: left;
+  background: var(--akzent); border-color: var(--akzent); color: #fff; }
+.haupt-knopf .hk-t { display: block; font: 700 20px/1.2 "Inter Display", "Inter", sans-serif; letter-spacing: -.2px; }
+.haupt-knopf .hk-u { display: block; font-weight: 500; font-size: 14px; opacity: .92; margin-top: 3px; }
+.haupt-knopf:hover { filter: brightness(1.06); }
+.zweit-knopf { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 12px 16px; border-radius: 14px; text-decoration: none;
+  color: var(--ink); background: var(--flaeche); border: 1px solid var(--linie); }
+.zweit-knopf .tg-icon { flex: 0 0 26px; width: 26px; height: 26px; color: #229ed9; }
+.zweit-knopf .zk-t { display: block; font-weight: 700; font-size: 16px; }
+.zweit-knopf .zk-u { display: block; font-size: 14px; color: var(--ink2); line-height: 1.35; }
+.zweit-knopf .x { margin-left: auto; color: var(--leise); font-size: 20px; }
+.zweit-knopf:hover { border-color: #229ed9; }
+.start-pool { margin-top: 36px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--leise); margin: 0 0 2px; }
+.mehr-link { display: inline-block; margin-top: 12px; font-weight: 700; font-size: 15px; color: var(--akzent); text-decoration: none; }
+.mehr-link:hover { text-decoration: underline; }
+.figur-zeile { margin: 14px 0 0; }
+.mehr-titel { margin-top: 40px; font-size: 20px; }
+.mehr-titel + .liste { margin-top: 8px; }
+.liste a { padding: 15px 2px; }
+.sozial { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
+.sozial a { font-size: 14px; text-decoration: none; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--linie); background: var(--flaeche); color: var(--ink2); }
+.sozial a:hover { border-color: var(--ink2); color: var(--ink); }
+
+/* Kompakte Ideen-Zeile: Text max. 2 Zeilen (Antippen zeigt alles), darunter Name/Datum links + Stimmen rechts */
+.idee { padding: 12px 0; }
+.idee .itext p { margin: 0; font-size: 16px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.idee .itext p.ganz { display: block; }
+.idee .ifuss { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.idee .ifuss .klein { font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.idee .stimmen { margin-top: 0; gap: 8px; flex: 0 0 auto; }
+.idee .stimme { min-width: 76px; min-height: 44px; justify-content: center; padding: 0 12px; font-size: 15px; }
+.stimme.runter:not(.an) { color: var(--ink2); border-color: var(--linie); }
+.stimme.runter:not(.an) b { color: var(--ink2); font-size: 15px; }
+.platz { display: inline-block; font-size: 11px; font-weight: 700; color: var(--akzent); background: var(--akzent-weich); border-radius: 6px;
+  padding: 1px 7px; margin-right: 6px; vertical-align: 1px; }
+.stimm-hinweis { margin: 10px 0 0; }
+.reiter { margin: 26px 0 4px; }
+#ideeauf { margin-top: 20px; }
+/* Schon Folge geworden: Video-Links als ruhige Chips statt schwarzer Vollbreiten-Knöpfe */
+.idee .videos { gap: 6px; margin-top: 10px; }
+.idee .videos .chip { font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--linie);
+  background: var(--flaeche); color: var(--ink); }
+.idee .videos .chip:hover { border-color: var(--ink2); }
+.umgesetzt .idee.gebaut .itext p { -webkit-line-clamp: unset; display: block; }
+.umgesetzt .ifuss { justify-content: flex-start; }
+/* So entsteht die Serie: nummerierte Schritte */
+.schritte { list-style: none; padding: 0; margin: 18px 0 20px; }
+.schritt { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid var(--linie); }
+.schritt .nr { flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--akzent-weich); color: var(--akzent); font-weight: 700; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.schritt b { font-size: 17px; } .schritt p { margin: 2px 0 0; color: var(--ink2); font-size: 15px; line-height: 1.45; }
+.schritt .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.schritt .links a { font-size: 13px; padding: 5px 10px; }
+
+/* Runde 2 (28.10.2026, Mara/Lena/Silas): Kontrast (WCAG ≥ 4,5:1), Dunkelmodus, Tippflächen ≥ 44 px, ruhige Endstände */
+:root { color-scheme: light dark; --leise: #6f6e75; --akzent-text: #b8501f; }
+@media (prefers-color-scheme: dark) {
+  :root { --leise: #8a8993; --akzent-text: #f0875a; }
+  .haupt-knopf { color: #1a0f0a; }
+  .stimme.an, .stimme.an b { color: var(--bg); }
+  .platz { color: var(--akzent); }
+}
+.startseite .bild { aspect-ratio: 16 / 7; }
+.haupt-knopf .hk-u { opacity: 1; }
+.neben-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink2); text-underline-offset: 3px; }
+.neben-link:hover { color: var(--ink); }
+.mehr-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; color: var(--akzent-text); }
+.platz { font-size: 12px; color: #8f3a14; }
+.reiter button { min-height: 44px; padding: 0 18px; }
+.zurueck { padding: 12px 16px 12px 0; }
+.sozial a, .idee .videos .chip { padding: 11px 14px; }
+.idee .stimmen { gap: 12px; }
+.stimm-hinweis b:not(.gut) { color: var(--ink2); }
+.idee .ifuss .meta { display: flex; align-items: center; min-width: 0; white-space: nowrap; }
+.idee .ifuss .meta .wer { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.idee .ifuss .meta .dat, .idee .ifuss .meta .platz { flex-shrink: 0; }
+.stimmen.endstand { margin-top: 8px; gap: 14px; }
+.stimmen.endstand .stimme { background: none; border-color: transparent; pointer-events: none; padding: 0; min-width: 0; min-height: 0; font-size: 14px; }
+.mehr-knopf { display: block; width: 100%; margin-top: 10px; min-height: 48px; border-radius: 12px; border: 1px solid var(--linie); background: var(--flaeche);
+  color: var(--ink); font: 700 15px "Inter", sans-serif; cursor: pointer; }
+.mehr-knopf:hover { border-color: var(--ink2); }
+#setup-ende, .schritte + .klein + .mono + .zweit-knopf { margin-top: 20px; }
+/* inline-flex schluckt Leerzeichen zwischen Text und Pfeil → als Block-Zeile mit Polster (Tippfläche bleibt ≥ 44 px) */
+.mehr-link, .neben-link { display: inline-block; min-height: 0; padding: 12px 0; line-height: 1.35; }
