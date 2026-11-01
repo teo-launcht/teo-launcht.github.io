@@ -117,22 +117,17 @@ window.DATEN = {
    "Playwright + FFmpeg",
    "Rendern zum Video",
    "https://playwright.dev"
-  ],
-  [
-   "Suno",
-   "der Song „Vibe Coder“",
-   "https://suno.com"
   ]
  ],
  "codes": {
   "iter": 250000,
   "liste": [
    {
-    "s": "9XvDFF7YD9nJpabO/yTweA==",
-    "iv": "hd6elokWInjckTwV",
-    "c": "mn0h7I0+fcTnoOf50VBlbtJZy3fJNU7jgyGXEDd64eeJ+f+Ps715QtWxc0srZzG5rSF9Ct4KqzaCMNDUyZd+Yd3Xm6Dszd8aezjLlOwMykARF5Oq9noLW5Mrg/rXNcbizSc="
+    "s": "Krsl6BW8SG8EOx5JY2uQJw==",
+    "iv": "YxQYeXza14DOgaDx",
+    "c": "OO16OUx+WcEzfJfCITvlj2nSUEPhtjeIcXCe5idaz4IhDrfp1HAH4yq05Fe6cA+yCs2xnRsjspT4XGm2oXaWsMsTQwA2cYuTyw4T+D6JUaWbD2N5uoGG3L2qxEEQHKWTj10="
    }
   ]
  },
- "gebaut": "2026-11-01T17:14"
+ "gebaut": "2026-11-01T17:24"
 };
