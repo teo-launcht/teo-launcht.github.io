@@ -65,7 +65,7 @@
     const ziel = liste || fertig; if (!ziel) return;
     if (!API) { ziel.innerHTML = '<li class="klein">Der Ideen-Pool startet in Kürze.</li>'; return; }
     try { ideen = (await (await fetch(API + "/api/ideen")).json()).ideen || []; if (liste) zeige(); if (fertig) zeigeFertig(); }
-    catch (e) { ziel.innerHTML = '<li class="klein">Ideen gerade nicht erreichbar.</li>'; }
+    catch (e) { ziel.innerHTML = '<li class="klein">Der Ideen-Pool macht gerade eine kurze Pause – bald kannst du wieder einreichen und abstimmen.</li>'; }   // 01.11.: Backend nach Bot-Angriff pausiert
   }
   if (liste) liste.addEventListener("click", async ev => {
     const t = ev.target.closest(".itext p"); if (t) { t.classList.toggle("ganz"); return; }
@@ -89,7 +89,7 @@
         body: JSON.stringify({ text: $("ideetext").value, name: $("ideename").value, website: $("website").value, turnstile: tok }) })).json();
       if (r.ok) { m.textContent = r.hinweis; $("ideetext").value = ""; $("zaehler").textContent = "0 / 280"; }
       else m.textContent = r.fehler || "Hat nicht geklappt.";
-    } catch (e) { m.textContent = "Gerade nicht erreichbar – später nochmal?"; }
+    } catch (e) { m.textContent = "Der Ideen-Pool macht gerade eine kurze Pause – bald geht's weiter."; }
     if (window.turnstile) try { window.turnstile.reset(); } catch (e) {}
   });
   if ($("ideetext")) $("ideetext").addEventListener("input", e => { $("zaehler").textContent = e.target.value.length + " / 280"; });
