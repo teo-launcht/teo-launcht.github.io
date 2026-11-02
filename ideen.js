@@ -74,7 +74,10 @@
     if (window.turnstile) return ok();
     let s = $("ts-js"); if (!s) { s = document.createElement("script"); s.id = "ts-js"; s.async = true; s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; document.head.appendChild(s); }
     const warte = () => window.turnstile ? ok() : setTimeout(warte, 100); warte(); });
-  async function holeTicket() {
+  let laeuft = null;   // läuft schon eine Prüfung (mehrmals getippt)? Dann darauf warten statt eine zweite zu starten
+  const holeTicket = () => laeuft || (laeuft = holeTicketJetzt().finally(() => { laeuft = null; }));
+  async function holeTicketJetzt() {
+    hinweis("Einen Moment – kurze Prüfung, dass du kein Bot bist …");
     await tsLaden();
     const box = document.createElement("div"); box.className = "ts-stimme"; document.body.appendChild(box);
     const token = await new Promise((ok, nein) => window.turnstile.render(box, { sitekey: cfg.sitekey, appearance: "interaction-only", language: "de",
