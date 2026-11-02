@@ -64,17 +64,47 @@
   async function laden() {
     const ziel = liste || fertig; if (!ziel) return;
     if (!API) { ziel.innerHTML = '<li class="klein">Der Ideen-Pool startet in Kürze.</li>'; return; }
-    try { ideen = (await (await fetch(API + "/api/ideen")).json()).ideen || []; if (liste) zeige(); if (fertig) zeigeFertig(); }
+    try { const d = await (await fetch(API + "/api/ideen")).json(); ideen = d.ideen || []; if (liste) zeige(); if (fertig) zeigeFertig();
+      if (d.pause && liste) liste.insertAdjacentHTML("beforebegin", '<p class="klein" id="pause-hinweis">Abstimmen macht gerade kurz Pause – Ideen einreichen geht weiter.</p>'); }
     catch (e) { ziel.innerHTML = '<li class="klein">Der Ideen-Pool macht gerade eine kurze Pause – bald kannst du wieder einreichen und abstimmen.</li>'; }   // 01.11.: Backend nach Bot-Angriff pausiert
+  }
+  /* 02.11. (nach Bot-Angriff): Abstimmen nur mit Ticket. Beim ersten Klick läuft die Bot-Prüfung (Turnstile, meist unsichtbar),
+     dann gilt das Ticket 30 min für bis zu 30 Stimmen. Ohne Ticket nimmt der Server keine Stimme an. */
+  const tsLaden = () => new Promise(ok => {
+    if (window.turnstile) return ok();
+    let s = $("ts-js"); if (!s) { s = document.createElement("script"); s.id = "ts-js"; s.async = true; s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js"; document.head.appendChild(s); }
+    const warte = () => window.turnstile ? ok() : setTimeout(warte, 100); warte(); });
+  async function holeTicket() {
+    await tsLaden();
+    const box = document.createElement("div"); box.className = "ts-stimme"; document.body.appendChild(box);
+    const token = await new Promise((ok, nein) => window.turnstile.render(box, { sitekey: cfg.sitekey, appearance: "interaction-only", language: "de",
+      callback: ok, "error-callback": () => nein(new Error("Prüfung fehlgeschlagen")), "timeout-callback": () => nein(new Error("Prüfung abgelaufen")) }))
+      .finally(() => setTimeout(() => box.remove(), 300));
+    const r = await (await fetch(API + "/api/ticket", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ geraet: geraetId(), turnstile: token }) })).json();
+    if (!r.ok) return { fehler: r.fehler || "Das hat nicht geklappt – bitte nochmal tippen." };   // z. B. Tagesgrenze oder Pause
+    merke("teo_ticket", { id: r.ticket, bis: r.ablauf }); return { id: r.ticket };
+  }
+  const ticket = () => { const t = lies("teo_ticket", null); return t && new Date(t.bis) - Date.now() > 30000 ? t.id : null; };
+  const hinweis = text => { let h = $("stimm-hinweis");
+    if (!h) { h = document.createElement("p"); h.id = "stimm-hinweis"; h.className = "klein"; liste.after(h); }
+    h.textContent = text; clearTimeout(h._t); h._t = setTimeout(() => h.textContent = "", 6000); };
+  async function abstimmen(id, wert, nochmal = true) {
+    let tk = ticket();
+    if (!tk) { const t = await holeTicket(); if (t.fehler) return t; tk = t.id; }
+    const antwort = await fetch(API + "/api/stimme", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, wert, geraet: geraetId(), ticket: tk }) });
+    const r = await antwort.json();
+    if (r.fehler === "ticket" && nochmal) { merke("teo_ticket", null); return abstimmen(id, wert, false); }   // abgelaufen/verbraucht → einmal neu
+    return r;
   }
   if (liste) liste.addEventListener("click", async ev => {
     const t = ev.target.closest(".itext p"); if (t) { t.classList.toggle("ganz"); return; }
     const b = ev.target.closest(".stimme"); if (!b) return;
     const id = +b.dataset.id, w = +b.dataset.w, neu = meine[id] === w ? 0 : w;
     try {
-      const r = await (await fetch(API + "/api/stimme", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, wert: neu, geraet: geraetId() }) })).json();
+      const r = await abstimmen(id, neu);
       if (r.ok) { meine[id] = neu; merke("teo_stimmen", meine); const i = ideen.find(x => x.id === id); i.hoch = r.hoch; i.runter = r.runter; zeige(false); }
-    } catch (e) {}
+      else hinweis(r.fehler === "pause" ? "Abstimmen macht gerade kurz Pause – bald geht's weiter." : r.fehler === "ticket" ? "Das hat nicht geklappt – bitte nochmal tippen." : r.fehler);
+    } catch (e) { hinweis("Die kurze Prüfung hat nicht geklappt – bitte nochmal tippen."); }
   });
   document.querySelectorAll("[data-sort]").forEach(t => t.addEventListener("click", () => {
     sortierung = t.dataset.sort; document.querySelectorAll("[data-sort]").forEach(x => x.classList.toggle("an", x === t)); zeige(); }));

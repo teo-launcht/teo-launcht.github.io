@@ -251,3 +251,6 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 #setup-ende, .schritte + .klein + .mono + .zweit-knopf { margin-top: 20px; }
 /* inline-flex schluckt Leerzeichen zwischen Text und Pfeil → als Block-Zeile mit Polster (Tippfläche bleibt ≥ 44 px) */
 .mehr-link, .neben-link { display: inline-block; min-height: 0; padding: 12px 0; line-height: 1.35; }
+/* 02.11.: Bot-Prüfung beim Abstimmen (Turnstile „interaction-only“) – erscheint nur, wenn Cloudflare eine Bestätigung braucht */
+.ts-stimme { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 50; }
+#stimm-hinweis, #pause-hinweis { margin: 8px 0 0; color: var(--leise, #777); }
