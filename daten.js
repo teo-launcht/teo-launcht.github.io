@@ -123,11 +123,11 @@ window.DATEN = {
   "iter": 250000,
   "liste": [
    {
-    "s": "qLSPzoKdonXs9LALnoXGnQ==",
-    "iv": "5URLs+7+I4tK4Y6Z",
-    "c": "TM9XVl3BsbCT82qr92O/VQlskuP0Kwd0+Qw5aXY0+SpBV+V3PJ2REJQSptEJ/Rc5LDnPimvByVezPxf6BA69ozVf1ql90yGa0BU3FiXiUglwksZXKGZr1mbuCHIRRKp8jNo="
+    "s": "tdjS09RRiBsblvDFsGtM2A==",
+    "iv": "EC2B4xjVmjnLNd8C",
+    "c": "qFdiM+h/79PYn3l7IBJjQXRxqVevWRFlrAmpug9s8mHiZqzxy34lgvHtF0vJFkiaLCTTD5Im/1SWy3JmP1Rx32dL69DIPuSXya1MU6tUT/B+tH3H10n0yEejg3PgtuMIJMY="
    }
   ]
  },
- "gebaut": "2026-11-02T11:51"
+ "gebaut": "2026-11-02T12:02"
 };

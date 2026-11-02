@@ -99,15 +99,19 @@
     if (r.fehler === "ticket" && nochmal) { merke("teo_ticket", null); return abstimmen(id, wert, false); }   // abgelaufen/verbraucht → einmal neu
     return r;
   }
+  const belegt = new Set();   // 02.11.: pro Idee immer nur eine Anfrage unterwegs (schnelles ▲/▼-Tippen schickte sonst beides los)
   if (liste) liste.addEventListener("click", async ev => {
     const t = ev.target.closest(".itext p"); if (t) { t.classList.toggle("ganz"); return; }
     const b = ev.target.closest(".stimme"); if (!b) return;
     const id = +b.dataset.id, w = +b.dataset.w, neu = meine[id] === w ? 0 : w;
+    if (belegt.has(id)) return;
+    belegt.add(id);
     try {
       const r = await abstimmen(id, neu);
       if (r.ok) { meine[id] = neu; merke("teo_stimmen", meine); const i = ideen.find(x => x.id === id); i.hoch = r.hoch; i.runter = r.runter; zeige(false); }
       else hinweis(r.fehler === "pause" ? "Abstimmen macht gerade kurz Pause – bald geht's weiter." : r.fehler === "ticket" ? "Das hat nicht geklappt – bitte nochmal tippen." : r.fehler);
     } catch (e) { hinweis("Die kurze Prüfung hat nicht geklappt – bitte nochmal tippen."); }
+    finally { belegt.delete(id); }
   });
   document.querySelectorAll("[data-sort]").forEach(t => t.addEventListener("click", () => {
     sortierung = t.dataset.sort; document.querySelectorAll("[data-sort]").forEach(x => x.classList.toggle("an", x === t)); zeige(); }));
