@@ -254,3 +254,5 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 /* 02.11.: Bot-Prüfung beim Abstimmen (Turnstile „interaction-only“) – erscheint nur, wenn Cloudflare eine Bestätigung braucht */
 .ts-stimme { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 50; }
 #stimm-hinweis, #pause-hinweis { margin: 8px 0 0; color: var(--leise, #777); }
+/* Teos Songs (02.11.2026): Cover-Vorschaubilder auf musik.html */
+.songs img { width: 64px; height: 64px; border-radius: 10px; flex: none; }
