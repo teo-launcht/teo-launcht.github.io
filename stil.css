@@ -256,3 +256,5 @@ h2.abschnitt { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--
 #stimm-hinweis, #pause-hinweis { margin: 8px 0 0; color: var(--leise, #777); }
 /* Teos Songs (02.11.2026): Cover-Vorschaubilder auf musik.html */
 .songs img { width: 64px; height: 64px; border-radius: 10px; flex: none; }
+/* 11.11.2026: Kit-Kachel oben auf der Startseite */
+.liste.kit { margin: 4px 0 22px; }
