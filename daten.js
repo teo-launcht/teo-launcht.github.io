@@ -1,16 +1,16 @@
 window.DATEN = {
- "follower": 1685,
+ "follower": 1687,
  "konten": {
   "tiktok": {
-   "n": 1685,
-   "stand": "2026-11-13T17:13:36+01:00"
+   "n": 1687,
+   "stand": "2026-11-13T19:13:38+01:00"
   },
   "instagram": {
    "n": 706,
    "stand": "2026-11-13T05:28:49.447Z"
   }
  },
- "stand": "2026-11-13T17:13:36+01:00",
+ "stand": "2026-11-13T19:13:38+01:00",
  "ziele": {
   "tiktok": 1000,
   "instagram": 500
@@ -123,11 +123,11 @@ window.DATEN = {
   "iter": 250000,
   "liste": [
    {
-    "s": "xfIMyBzfp9+pkAIVhnyp0Q==",
-    "iv": "tUTw2sIDJ9MkR1fF",
-    "c": "+j8fMhBeatCfa4aEqFFeluIsN5BTYWWkPTEj0d9TE9Ae7bXxYAK2K3bto6xetLFqqMuEaBol/ZqB5jptfdt9jxTRjEji6Y0DCD7bC+CuM6F4nWxuteUDXcFhJDoc+si5Oew="
+    "s": "RiAZxWXBjWIeYM2CDyDDIQ==",
+    "iv": "82Chk5GQWhTiCicx",
+    "c": "wfXbAnj4ZmCRAIAFwn6az/CG8p8fWqPOtcVPWmSVE85r6Nk/Iar9Vh3Qi7uy0vjnpLGz+JY0dWovzZXX6qkjRNfo1XEhegn8deRPGAX/7xwYB+18XlDsLP6JWQIOsDZVVtU="
    }
   ]
  },
- "gebaut": "2026-11-13T17:14"
+ "gebaut": "2026-11-13T19:14"
 };
