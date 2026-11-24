@@ -3,14 +3,14 @@ window.DATEN = {
  "konten": {
   "tiktok": {
    "n": 1717,
-   "stand": "2026-11-24T15:14:29+01:00"
+   "stand": "2026-11-24T17:14:31+01:00"
   },
   "instagram": {
    "n": 718,
    "stand": "2026-11-24T05:17:12.998Z"
   }
  },
- "stand": "2026-11-24T15:14:29+01:00",
+ "stand": "2026-11-24T17:14:31+01:00",
  "ziele": {
   "tiktok": 1000,
   "instagram": 500
@@ -123,11 +123,11 @@ window.DATEN = {
   "iter": 250000,
   "liste": [
    {
-    "s": "mYEF1qT9LLbwAes9xV/Z0g==",
-    "iv": "GzVLq9p6KlzAG1ML",
-    "c": "+nS7/uD7G1HvmVCJNQdbzswrLB6UCcEppOyDuGgwl88IkkTGPMaNucpV/N9weMbCRA/boC6N/YsvAUIE9KHbiMubwx3vNouCy7BuOuSS66CoYNgK8jsFhTu1wSkdPLMHNow="
+    "s": "k7JJndr3qOLHt0XGRbj/CA==",
+    "iv": "Mo+lT02sJ3mlR6Nh",
+    "c": "jxbz3Xxhi3TlFs1Z+qXUq+wokDnYS7TRBxtIIeMFiWAH3UeuJyd1H6GR9yhhyxK2aKEUicF2A7tesPYaY0d5AbsItYD5xgTyeq7A/BiPFWYT5RL/9oLJiaDOrp4+Jkt1fik="
    }
   ]
  },
- "gebaut": "2026-11-24T15:15"
+ "gebaut": "2026-11-24T17:15"
 };
